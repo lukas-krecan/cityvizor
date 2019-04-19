@@ -4,6 +4,7 @@ environment/environment.*
 
 # dependencies
 /node_modules
+/dist
 
 # misc
 npm-debug.log
