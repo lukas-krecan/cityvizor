@@ -36,14 +36,14 @@ Další možná nastavení:
 
 Administrátorský účet lze vytvořit spuštěním skriptu create-admin.js:
 ```
-NODE_ENV=development node server/scripts/create-admin.js
-NODE_ENV=production node server/scripts/create-admin.js
+NODE_ENV=development node server/src/scripts/create-admin.js
+NODE_ENV=production node server/src/scripts/create-admin.js
 ```
 
 Vzorové číselníky rozpočtových paragrafů a položek lze do databáze vložit skriptem sample-codelists
 ```
-NODE_ENV=development node server/scripts/sample-codelists.js
-NODE_ENV=production node server/scripts/create-admin.js
+NODE_ENV=development node server/src/scripts/sample-codelists.js
+NODE_ENV=production node server/src/scripts/create-admin.js
 ```
 
 ## Spuštění
