@@ -11,8 +11,6 @@ import digital.cesko.city_sync.exception.CitySyncException
 import digital.cesko.common.CommonConfig
 import digital.cesko.routers.citySearchRouter
 import full_text_search.fullTextSearchRouter
-import full_text_search.model.Invoices
-import full_text_search.service.import
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -26,8 +24,6 @@ import io.ktor.response.respond
 import io.ktor.routing.routing
 import io.ktor.util.KtorExperimentalAPI
 import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.transactions.transaction
 
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -66,9 +62,6 @@ fun Application.module(testing: Boolean = false) {
 
     install(XForwardedHeaderSupport)    // city request logs remote IP
 
-    transaction {
-        SchemaUtils.drop(Invoices)
-    }
     routing {
         fullTextSearchRouter()
         citySearchRouter()
@@ -87,7 +80,6 @@ fun Application.module(testing: Boolean = false) {
         healthCheck()
     }
 
-    import()
     install(StatusPages) {
         exception<CitySyncException> {
             call.respond(it.status ?: HttpStatusCode.InternalServerError, it)

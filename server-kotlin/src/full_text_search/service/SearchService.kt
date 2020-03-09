@@ -1,6 +1,5 @@
 package full_text_search.service
 
-import full_text_search.memoryIndex
 import full_text_search.model.InvoiceLucineModel
 import org.apache.lucene.index.DirectoryReader
 import org.apache.lucene.index.IndexReader
@@ -9,8 +8,17 @@ import org.apache.lucene.search.BooleanClause
 import org.apache.lucene.search.BooleanQuery
 import org.apache.lucene.search.IndexSearcher
 import org.apache.lucene.search.WildcardQuery
+import org.apache.lucene.store.RAMDirectory
 
 const val MAX_SIZE = 10_000
+
+const val PROFILE = "profile"
+const val COUNTERPARTY_ID = "counterpartyId"
+const val COUNTERPARTY_NAME = "counterpartyName"
+const val DESCRIPTION = "description"
+const val ID = "id"
+
+private val memoryIndex = RAMDirectory()
 
 fun search(query: String, profile: String?): List<InvoiceLucineModel> {
     val counterpartyIdQuery = WildcardQuery(Term(COUNTERPARTY_ID, "$query*".toLowerCase()))
@@ -27,11 +35,11 @@ fun search(query: String, profile: String?): List<InvoiceLucineModel> {
     val mapped = topDocs.scoreDocs.map {
         val doc = searcher.doc(it.doc)
         val result = InvoiceLucineModel(
-            id = doc.get(ID).toInt(),
-            profile = doc.get(PROFILE),
-            description = doc.get(DESCRIPTION),
-            counterPartyId = doc.get(COUNTERPARTY_ID),
-            counterPartyName = doc.get(COUNTERPARTY_NAME)
+                id = doc.get(ID).toInt(),
+                profile = doc.get(PROFILE),
+                description = doc.get(DESCRIPTION),
+                counterPartyId = doc.get(COUNTERPARTY_ID),
+                counterPartyName = doc.get(COUNTERPARTY_NAME)
         )
         result
     }

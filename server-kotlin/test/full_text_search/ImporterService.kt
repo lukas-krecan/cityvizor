@@ -1,9 +1,13 @@
-package full_text_search.service
+package digital.cesko.full_text_search
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import full_text_search.memoryIndex
 import full_text_search.model.Invoices
-import org.apache.lucene.analysis.cz.CzechAnalyzer
+import full_text_search.service.COUNTERPARTY_ID
+import full_text_search.service.COUNTERPARTY_NAME
+import full_text_search.service.DESCRIPTION
+import full_text_search.service.ID
+import full_text_search.service.PROFILE
 import org.apache.lucene.analysis.standard.StandardAnalyzer
 import org.apache.lucene.document.Document
 import org.apache.lucene.document.Field
@@ -15,11 +19,6 @@ import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.joda.time.DateTime
 
-const val PROFILE = "profile"
-const val COUNTERPARTY_ID = "counterpartyId"
-const val COUNTERPARTY_NAME = "counterpartyName"
-const val DESCRIPTION = "description"
-const val ID = "id"
 const val FILE_NAME = "invoices.csv"
 
 val allowedFieldsToBeExported = listOf(ID, PROFILE, COUNTERPARTY_ID, COUNTERPARTY_NAME, DESCRIPTION)

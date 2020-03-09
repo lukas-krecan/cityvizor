@@ -8,9 +8,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.routing.get
-import org.apache.lucene.store.RAMDirectory
 
-val memoryIndex = RAMDirectory()
 fun Routing.fullTextSearchRouter() {
     get("/search") {
         val query = call.request.queryParameters["query"] ?: throw FTSException("No query supplied")
