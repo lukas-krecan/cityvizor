@@ -30,6 +30,7 @@ abstract class AbstractKtorTest {
         @JvmField
         val postgres: KPostgreSQLContainer = KPostgreSQLContainer()
                 .withLogConsumer { frame -> logger.debug(frame.utf8String) }
+                .withUsername("postgres")
                 .withClasspathResourceMapping("demo_dump.sql", "/docker-entrypoint-initdb.d/demo_dump.sql", BindMode.READ_ONLY)
     }
 }
